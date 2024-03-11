@@ -1,9 +1,10 @@
-import React, { useContext, useState } from 'react';
-import { AppContext } from '../context/AppContext';
-import {v4 as uuidv4} from 'uuid';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux'; // Импортируем useDispatch
+import { v4 as uuidv4 } from 'uuid';
+import { addExpense } from '../redux/actions'; // Импортируем действие для добавления расхода
 
 const AddExpenseForm = () => {
-    const {dispatch} = useContext(AppContext);
+    const dispatch = useDispatch(); // Получаем функцию dispatch из хука useDispatch
 
     const [name, setName] = useState('');
     const [cost, setCost] = useState('');
@@ -17,19 +18,16 @@ const AddExpenseForm = () => {
             cost: parseInt(cost),
         };
 
-        dispatch({
-            type: 'ADD_EXPENSE',
-            payload: expense,
-        });
+        dispatch(addExpense(expense)); // Отправляем действие addExpense с расходом в хранилище
     };
 
     return(
         <form onSubmit={onSubmit}>
             <div className='row'>
                 <div className='col-sm'>
-                    <label for="name">Name</label>
+                    <label htmlFor="name">Name</label>
                     <input 
-                    required='ruquired'
+                    required
                     type='text'
                     className='form-control'
                     id='name'
@@ -38,9 +36,9 @@ const AddExpenseForm = () => {
                     ></input>
                 </div>
                 <div className='col-sm'>
-                    <label for="cost">Cost</label>
+                    <label htmlFor="cost">Cost</label>
                     <input
-                    required='required'
+                    required
                     type='text'
                     className='form-control'
                     id='cost'

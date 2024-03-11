@@ -1,15 +1,16 @@
 import React from "react";
+import { Provider } from "react-redux";
+import store from "./redux/store"; // Импорт вашего store из Redux
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Budget from "./components/Budget";
 import Remaining from "./components/Remaining";
 import ExpenseTotal from "./components/ExpenseTotal";
 import ExpenseList from "./components/ExpenseList";
 import AddExpenseForm from "./components/AddExpenseForm";
-import { AppProvider } from "./context/AppContext";
 
 const App = () => {
   return(
-        <AppProvider>
+        <Provider store={store}>
             <div className="container">
             <h1 className="mt-3">My Budget Planner</h1>
             <div className="row mt-3">
@@ -36,7 +37,7 @@ const App = () => {
               </div>
             </div>
           </div>
-        </AppProvider>
+        </Provider>
   );
 };
 

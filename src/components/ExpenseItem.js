@@ -1,15 +1,13 @@
-import React, { useContext } from "react";
-import {TiDelete} from 'react-icons/ti';
-import { AppContext } from "../context/AppContext";
+import React from "react";
+import { useDispatch } from "react-redux"; // Импортируем необходимый хук
+import { TiDelete } from 'react-icons/ti';
+import { deleteExpense } from "../redux/actions"; // Импортируем действие для удаления расхода
 
 const ExpenseItem = (props) => {
-    const {dispatch} = useContext(AppContext);
+    const dispatch = useDispatch(); // Получаем функцию dispatch из хука useDispatch
 
     const handleDeleteExpense = () => {
-        dispatch({
-            type: 'DELETE_EXPENSE',
-            payload: props.id,
-        });
+        dispatch(deleteExpense(props.id)); // Отправляем действие deleteExpense с id расхода в хранилище
     };
 
     return(
@@ -17,9 +15,7 @@ const ExpenseItem = (props) => {
             {props.name}
             <div>
                 <span className='badge text-bg-success me-3'>
-                ₸{props.cost}
-                
-                   
+                    ₸{props.cost}
                 </span>
                 <TiDelete size='24px' onClick={handleDeleteExpense}></TiDelete>
             </div>
@@ -27,4 +23,4 @@ const ExpenseItem = (props) => {
     );
 };
 
-export default ExpenseItem; 
+export default ExpenseItem;
